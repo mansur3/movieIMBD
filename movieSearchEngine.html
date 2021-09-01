@@ -1,0 +1,317 @@
+
+
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Movie Versa</title>
+        <style>
+            #container {
+                width:80%;
+                height:500px;
+                margin:auto; 
+                background-color:gainsboro;
+                border:1px solid black;
+            }
+            #navbar {
+                width:100%;
+                height:130px;
+                background-color:rgb(0, 150, 100);
+                border:1px solid black;
+            }
+            #homeIcon {
+                float:left;
+                background:white;
+                width: 20%;
+                height:100%;
+                border:1px solid black;
+                border-radius: 50%;
+
+            }
+            #searchBar {
+                margin-top:15px;
+                float:right;
+                background:white;
+                width: 35%;
+                height:60%;
+                
+                border:3px solid black;
+            }
+            #homeIcon img {
+                width:100%;
+                height:100%;
+                border-radius: 50%;
+            }
+            #searchBar input {
+                margin-top:10px;
+                width:80%;
+                font-size:30px;
+                height:70%;
+                float:left;
+            }
+            #searchBar button {
+                margin-top:10px;
+                background-color:green;
+                color:white;
+                width:17%;
+                height:70%;
+                font-size:30px;
+                float:right;
+
+            }
+            #show-movie {
+                width:100%;
+                height:400px;
+                border:2px solid black;
+                margin:3px;
+            }
+            #container {
+                display:flex;
+                flex-direction:column;
+                border:2px solid black;
+            }
+            #content {
+                width:100%;
+                /* height:400px; */
+                background-color:aliceblue;
+            }
+
+
+            #show-movie {
+                display:grid;
+                height:500px;
+                grid-template-columns: 32% 68%;
+                /* grid-template-rows: 300px; */
+            }
+            #show-movie > div {
+                font-size:30px; 
+                /* border:2px solid black; */
+                
+                /* height:500px; */
+            } 
+            #show-image {
+                width:50%;
+            }
+            #image {
+                margin-left:40px;
+                width:100%;
+                height:100%;
+            }
+            #description {
+                width:100%;
+                height:100%;
+            }
+
+            #moviename {
+               display:flex;
+               flex-direction:row;
+               /* border:1px solid black; */
+            }
+            #moviename > #title {
+                width:80%;
+                height:20px;
+                /* border:1px solid black; */
+            }
+            /* #movienme > #year {
+                width:16%;
+                height:20px;
+            } */
+        </style>
+    </head>
+    <body>
+
+    <div id = "container">
+        <div id = "navbar">
+            <div id = "homeIcon">
+                <img src = "https://th.bing.com/th/id/R.47be76a7aa4fa6b615a91ac062b09352?rik=HhjOdZMhOMq3Ig&riu=http%3a%2f%2fwww.davidwaters.com%2fwp-content%2fuploads%2f2014%2f10%2fimdb-top100-film.jpg&ehk=al79u0yGBNOEcb0Wn5mhoqte3SXM1jWix5Bb3FffHCE%3d&risl=&pid=ImgRaw&r=0">
+            </div>
+            <div id = "searchBar">
+                <input type = "text" id = "search" placeholder = "Enter the movie name">
+                <button onclick = "movie()">Search</button>
+            </div>
+        </div>
+        <div id = "content">
+
+        </div>
+    </div>
+
+
+
+
+
+
+
+     
+    </body>
+</html>
+<script>
+           
+        //   function callMovie() {
+        //       movie();
+        //   } 
+    async function movie() {
+
+        try {
+            let movieName = document.getElementById("search").value;
+   
+            // let city = document.getElementById("city").value;
+           
+            let response = await fetch("http://www.omdbapi.com/?apikey=4b25ac30&t="+movieName);
+
+            // let response = await fetch("http://www.omdbapi.com/?i=tt3896198&apikey=4b25ac30");
+            var data = await response.json();
+
+
+            // // showing part
+            // var parent = document.getElementById("content");
+
+
+            // //container of movie
+            // var div = document.createElement("div");
+            // div.id = "show-movie"
+            // //image inside container
+            // var image_div = document.createElement("div");
+            // image_div.id = "show-image";
+            // var img = document.createElement("img");
+            // img.src = data.Poster
+            // img.id = "image";
+            // // console.log(data.Poster);
+            // image_div.append(img);
+
+
+
+            // //description aprt
+            // var description_div = document.createElement("div");
+            // description_div.id = "description"
+            // div.append(image_div, description_div);
+            // parent.append(div);
+
+
+
+
+
+
+
+            // console.log(data);
+
+
+
+
+
+
+
+            showMovieDetails(data);
+
+
+
+        } catch(err) {
+            console.log(err);
+        }
+        
+    }
+    function showMovieDetails(data) {
+        
+            // showing part
+            var parent = document.getElementById("content");
+            parent.innerHTML = "";
+
+
+            //container of movie
+            var div = document.createElement("div");
+            
+            div.id = "show-movie"
+           
+
+            //image inside container
+            var image_div = document.createElement("div");
+            image_div.id = "show-image";
+            var img = document.createElement("img");
+            img.src = data.Poster
+            img.id = "image";
+            // console.log(data.Poster);
+            image_div.append(img);
+
+
+
+            //description aprt
+            var description_div = document.createElement("div");
+            description_div.id = "description"
+
+            //naming part
+            var name = document.createElement("div");
+            name.id = "moviename";
+            
+            var title = document.createElement("p");
+            title.id = "title";
+            title.innerText = "Title: " + data.Title + "(" + data.Year +")";
+            // var year = document.createElement("span");
+            // year.id = "year";
+            // year.innerText = data.Year;
+            name.append(title);
+
+        //time and genre particular
+
+        var timeAndGenre = document.createElement("div");
+        timeAndGenre.id = "timeAndGenre";
+        var time = document.createElement("p");
+        time.innerText = "Duration: " + data.Runtime;
+        var genre = document.createElement("p");
+        genre.innerText = "Genre: " + data.Genre;
+        timeAndGenre.append(time, genre);
+
+
+
+
+        var rating = document.createElement("div");
+        rating.id = "rating";
+        var rate = document.createElement("p");
+        rate.innerText ="IMBD rating: " + data.imdbRating;
+        rating.append(rate);
+
+
+        var descr = document.createElement("div");
+        descr.id = "description";
+        var p = document.createElement("p");
+        var a = "Plot: " + data.Plot;
+        p.innerText = a;
+        descr.append(p);
+
+
+
+
+        //read more button 
+        var readmore = document.createElement("button");
+        readmore.innerHTML = "Read More";
+
+
+
+
+
+        description_div.append(name, timeAndGenre, rating, descr, readmore);
+
+
+
+
+            div.append(image_div, description_div);
+            parent.append(div);
+
+
+
+
+
+
+
+            console.log(data);
+
+
+
+
+
+
+
+
+    }
+    // showMovieDetails();
+
+    // getWeather();
+    </script>
