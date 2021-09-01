@@ -116,6 +116,13 @@
                 width:16%;
                 height:20px;
             } */
+            #showError {
+                width:100%;
+                height:100%;
+                margin:auto;
+                text-align:center;
+                font-size:30px;
+            }
         </style>
     </head>
     <body>
@@ -161,47 +168,12 @@
             // let response = await fetch("http://www.omdbapi.com/?i=tt3896198&apikey=4b25ac30");
             var data = await response.json();
 
-
-            // // showing part
-            // var parent = document.getElementById("content");
-
-
-            // //container of movie
-            // var div = document.createElement("div");
-            // div.id = "show-movie"
-            // //image inside container
-            // var image_div = document.createElement("div");
-            // image_div.id = "show-image";
-            // var img = document.createElement("img");
-            // img.src = data.Poster
-            // img.id = "image";
-            // // console.log(data.Poster);
-            // image_div.append(img);
-
-
-
-            // //description aprt
-            // var description_div = document.createElement("div");
-            // description_div.id = "description"
-            // div.append(image_div, description_div);
-            // parent.append(div);
-
-
-
-
-
-
-
-            // console.log(data);
-
-
-
-
-
-
-
-            showMovieDetails(data);
-
+            if(data.Title == undefined) {
+            showError();
+                
+            } else {
+                showMovieDetails(data);
+            }
 
 
         } catch(err) {
@@ -209,6 +181,24 @@
         }
         
     }
+
+    function showError(data) {
+        var parent = document.getElementById("content");
+         parent.innerHTML = "";
+
+        //error message
+
+        var divError = document.createElement("div");
+        divError.id = "showError";
+        var p = document.createElement("p");
+        p.innerText = "No match found!! Sorry you can try another movie";
+        divError.append(p);
+        parent.append(divError);
+        // console.log("This is the name");
+    }
+
+
+
     function showMovieDetails(data) {
         
             // showing part
@@ -235,7 +225,7 @@
 
             //description aprt
             var description_div = document.createElement("div");
-            description_div.id = "description"
+            description_div.id = "description";
 
             //naming part
             var name = document.createElement("div");
@@ -259,9 +249,11 @@
         genre.innerText = "Genre: " + data.Genre;
         timeAndGenre.append(time, genre);
 
+        var realeseDate = document.createElement("div");
+        var date = document.createElement("p");
+        date.innerText = "Realese year: " + data.Released;
 
-
-
+        realeseDate.append(date);
         var rating = document.createElement("div");
         rating.id = "rating";
         var rate = document.createElement("p");
@@ -280,14 +272,13 @@
 
 
         //read more button 
-        var readmore = document.createElement("button");
-        readmore.innerHTML = "Read More";
+        
 
 
 
 
 
-        description_div.append(name, timeAndGenre, rating, descr, readmore);
+        description_div.append(name, timeAndGenre, realeseDate, rating, descr);
 
 
 
