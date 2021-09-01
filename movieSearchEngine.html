@@ -191,8 +191,12 @@
         var divError = document.createElement("div");
         divError.id = "showError";
         var p = document.createElement("p");
+        var span = document.createElement("span");
+        var imag = document.createElement("img");
+        imag.src = "https://www.bing.com/th/id/OGC.5ebc1d2f0d8214f3404464430523b575?pid=1.7&rurl=https%3a%2f%2fcdn.dribbble.com%2fusers%2f251873%2fscreenshots%2f9288094%2f13539-sign-for-error-or-explanation-alert.gif&ehk=k5SoizXvMlhuEukUaPlnXHWcVdHJbMLg%2bbLD4486y1Q%3d";
+        span.append(imag);
         p.innerText = "No match found!! Sorry you can try another movie";
-        divError.append(p);
+        divError.append(span,p);
         parent.append(divError);
         // console.log("This is the name");
     }
