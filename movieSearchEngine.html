@@ -91,6 +91,8 @@
             } 
             #show-image {
                 width:80%;
+                height:500px;
+                /* background-repeat: no-repeat; */
                 background-repeat: no-repeat;
             }
             #image {
@@ -225,12 +227,13 @@
             //image inside container
             var image_div = document.createElement("div");
             image_div.id = "show-image";
-            image_div.style.background = "url(" + data.Poster + ")";
-            // var img = document.createElement("img");
-            // img.src = data.Poster
-            // img.id = "image";
-            // // console.log(data.Poster);
-            // image_div.append(img);
+            // image_div.style.background = "url(" + data.Poster + ")";
+            // image_div.style.display = "no-repeat";
+            var img = document.createElement("img");
+            img.src = data.Poster
+            img.id = "image";
+            // console.log(data.Poster);
+            image_div.append(img);
 
 
 
@@ -270,11 +273,11 @@
         var rate = document.createElement("p");
         // rate.innerText ="IMBD rating: " + data.imdbRating;
         if(Number(data.imdbRating) > 8.5) {
-            var show = document.createElement("p");
-            show.id = "showRecom";
+            var rate = document.createElement("p");
+            rate.id = "showRecom";
             
-            show.innerHTML = "IMBD rating: " + data.imdbRating + "<span style = 'margin-left:10px;background-color:green; color:white;' >Recommended</span>";
-            image_div.append(show);
+            rate.innerHTML = "IMBD rating: " + data.imdbRating + "<span style = 'margin-left:10px;background-color:green; color:white;' >Recommended</span>";
+            rating.append(rate);
         } else {
         rate.innerText ="IMBD rating: " + data.imdbRating;
 
